@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>План хифза — метод 5 крепостей</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+            color: #222;
+        }
+        body.dark {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        body.compact .container {
+            max-width: 100%;
+            padding: 10px 10px 20px;
+        }
+        body.compact h1 {
+            font-size: 20px;
+        }
+        body.compact h2 {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        body.compact .note {
+            display: none;
+        }
+        body.compact .card {
+            padding: 10px 10px;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px 15px 40px;
+            background-color: #ffffff;
+        }
+        body.dark .container {
+            background-color: #1e1e1e;
+        }
+        h1, h2, h3 {
+            color: #16324f;
+        }
+        body.dark h1, body.dark h2, body.dark h3 {
+            color: #cfd8ff;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        h2 {
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 5px;
+            margin-top: 28px;
+        }
+        body.dark h2 {
+            border-color: #444;
+        }
+        p, li {
+            font-size: 15px;
+        }
+        .note {
+            background: #fff8e1;
+            border-left: 4px solid #ffb300;
+            padding: 10px 12px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        body.dark .note {
+            background: #333018;
+            color: #fcefb8;
+        }
+        .card {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 12px 14px;
+            margin: 12px 0;
+            background-color: #fafafa;
+        }
+        body.dark .card {
+            border-color: #444;
+            background-color: #242424;
+        }
+        .checklist label {
+            display: block;
+            margin: 4px 0;
+            cursor: pointer;
+        }
+        .checklist input[type="checkbox"] {
+            margin-right: 6px;
+        }
+        small {
+            color: #666;
+        }
+        body.dark small {
+            color: #aaa;
+        }
+        .today-badge {
+            display: inline-block;
+            background: #16324f;
+            color: #fff;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 12px;
+            margin-left: 6px;
+        }
+        .reset-btn, .btn {
+            margin-top: 6px;
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: 1px solid #888;
+            background: #f5f5f5;
+            color: #222;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+        .reset-btn:hover, .btn:hover {
+            background: #e8e8e8;
+        }
+        body.dark .reset-btn, body.dark .btn {
+            background: #303030;
+            color: #eee;
+            border-color: #777;
+        }
+        body.dark .reset-btn:hover, body.dark .btn:hover {
+            background: #404040;
+        }
+        .reset-btn.danger {
+            border-color: #d32f2f;
+            background: #fff5f5;
+            color: #b71c1c;
+        }
+        .reset-btn.danger:hover {
+            background: #ffebee;
+        }
+        body.dark .reset-btn.danger {
+            background: #3a2323;
+            color: #ffb3b3;
+            border-color: #ff5252;
+        }
+        body.dark .reset-btn.danger:hover {
+            background: #4a2929;
+        }
+        .btn.primary {
+            background: #16324f;
+            color: #fff;
+            border-color: #16324f;
+            font-weight: 500;
+        }
+        .btn.primary:hover {
+            background: #1a3d5f;
+        }
+        body.dark .btn.primary {
+            background: #2a4d7f;
+            border-color: #2a4d7f;
+        }
+        body.dark .btn.primary:hover {
+            background: #3a5d8f;
+        }
+        .settings-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 20px;
+            font-size: 14px;
+            margin-top: 6px;
+        }
+        .settings-grid label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .settings-grid input[type="number"],
+        .settings-grid input[type="text"],
+        .settings-grid select {
+            padding: 4px 6px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            touch-action: manipulation;
+        }
+        body.dark .settings-grid input[type="number"],
+        body.dark .settings-grid input[type="text"],
+        body.dark .settings-grid select {
+            background: #2a2a2a;
+            color: #eee;
+            border-color: #555;
+        }
+        .settings-grid input[type="number"] {
+            width: 70px;
+        }
+        .settings-grid input[type="text"] {
+            min-width: 220px;
+            max-width: 100%;
+        }
+        .settings-grid select {
+            min-width: 150px;
+        }
+        .settings-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+        .settings-toggle button {
+            font-size: 13px;
+        }
+        .hidden {
+            display: none !important;
+        }
+        #daily-progress {
+            margin-top: 8px;
+        }
+        #progress-bar-outer {
+            width: 100%;
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 4px;
+        }
+        #progress-bar-inner {
+            width: 0%;
+            height: 100%;
+            background: #4caf50;
+            transition: width 0.3s ease;
+        }
+        body.dark #progress-bar-outer {
+            background: #444;
+        }
+        body.dark #progress-bar-inner {
+            background: #81c784;
+        }
+        #lesson-progress-box {
+            margin-top: 12px;
+            padding: 10px;
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            border-radius: 4px;
+        }
+        body.dark #lesson-progress-box {
+            background: #1a2a3a;
+            border-color: #42a5f5;
+        }
+        #lesson-progress-bar-outer {
+            width: 100%;
+            background: #b3d9ff;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+        #lesson-progress-bar {
+            width: 0%;
+            height: 100%;
+            background: #2196f3;
+            transition: width 0.3s ease;
+        }
+        body.dark #lesson-progress-bar-outer {
+            background: #2a3a4a;
+        }
+        body.dark #lesson-progress-bar {
+            background: #42a5f5;
+        }
+        textarea {
+            width: 100%;
+            max-width: 100%;
+            font-family: inherit;
+            font-size: 14px;
+            padding: 6px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            touch-action: manipulation;
+        }
+        body.dark textarea {
+            background: #1e1e1e;
+            color: #eee;
+            border-color: #555;
+        }
+        #forecast-table-wrapper {
+            overflow-x: auto;
+        }
+        #forecast-table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+        #forecast-table th, #forecast-table td {
+            border: 1px solid #ddd;
+            padding: 6px 8px;
+            text-align: left;
+        }
+        #forecast-table th {
+            background-color: #f0f0f0;
+            font-weight: 600;
+        }
+        body.dark #forecast-table th {
+            background-color: #333;
+        }
+        body.dark #forecast-table td, body.dark #forecast-table th {
+            border-color: #555;
+        }
+        @media (max-width: 768px) {
+            body {
+                font-size: 15px;
+            }
+            .container {
+                padding: 15px 10px 30px;
+            }
+            .settings-grid {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .settings-grid input[type="text"] {
+                min-width: 100%;
+            }
+        }
+        @media (max-width: 640px) {
+            body {
+                font-size: 14px;
+            }
+            h1 {
+                font-size: 20px;
+            }
+            h2 {
+                font-size: 18px;
+            }
+            .settings-toggle {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+        @media print {
+            body {
+                background: #fff;
+                color: #000;
+            }
+            .note,
+            #print-btn,
+            #toggle-settings,
+            #toggle-forecast,
+            #complete-lesson-btn,
+            .reset-btn,
+            .btn {
+                display: none !important;
+            }
+            .container {
+                box-shadow: none;
+                border: none;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="settings-toggle">
+        <h1>План хифза по методу «5 крепостей»</h1>
+        <div>
+            <button class="btn" id="print-btn" type="button">Печать плана</button>
+        </div>
+    </div>
+
+    <p>
+        Пример: выучено <strong>19 страниц</strong> с начала суры «Аль‑Бакара».<br>
+        Норма нового: <strong><span id="lesson-desc-short">5 строк</span> в день</strong>.
+    </p>
+
+    <div class="note">
+        Настройки сохраняются в браузере (localStorage).  
+        3‑я крепость (дальнее повторение) автоматически двигается каждый новый день:
+        сайт помнит, что ты повторял вчера, и даёт следующий блок сегодня.
+    </div>
+
+    <h2>Мои настройки</h2>
+    <div class="card">
+        <div class="settings-toggle">
+            <p><small>Измени под себя — остальное сайт посчитает сам.</small></p>
+            <button class="btn" id="toggle-settings" type="button">Скрыть настройки</button>
+        </div>
+        <div id="settings-panel">
+            <div class="settings-grid">
+                <label>
+                    Всего выучено страниц:
+                    <input type="number" id="total-pages" min="1" value="19">
+                </label>
+                <label>
+                    Текущая страница (учу новый текст):
+                    <input type="number" id="current-page" min="1" value="19">
+                </label>
+                <label>
+                    Круг дальнего повторения начинать с страницы:
+                    <input type="number" id="start-page" min="1" value="1">
+                </label>
+                <label>
+                    Дней на один круг дальнего повторения:
+                    <input type="number" id="cycle-days" min="1" value="6">
+                </label>
+                <label>
+                    Объём нового урока:
+                    <select id="lesson-size">
+                        <option value="5">5 строк</option>
+                        <option value="7">7 строк</option>
+                        <option value="page">целая страница</option>
+                    </select>
+                </label>
+                <label>
+                    Слабые страницы (например: 8-13, 20, 25-26):
+                    <input type="text" id="weak-pages" value="8-13">
+                </label>
+            </div>
+            <hr>
+            <h3>Какие крепости я использую</h3>
+            <div class="settings-grid">
+                <label><input type="checkbox" id="use-f1" checked> 1‑я крепость (новый урок)</label>
+                <label><input type="checkbox" id="use-f2" checked> 2‑я крепость (ближнее повторение)</label>
+                <label><input type="checkbox" id="use-f3" checked> 3‑я крепость (дальнее повторение)</label>
+                <label><input type="checkbox" id="use-f4" checked> 4‑я крепость (намаз)</label>
+                <label><input type="checkbox" id="use-f5" checked> 5‑я крепость (проверка/слушание)</label>
+            </div>
+            <hr>
+            <h3>Режимы и дополнительные настройки</h3>
+            <div class="settings-grid">
+                <label>
+                    <input type="checkbox" id="revision-mode-toggle">
+                    Режим только повторения (без нового урока)
+                </label>
+                <label>
+                    <input type="checkbox" id="dark-mode-toggle">
+                    Тёмная тема
+                </label>
+                <label>
+                    <input type="checkbox" id="compact-mode-toggle">
+                    Компактный режим интерфейса
+                </label>
+                <label>
+                    <input type="checkbox" id="use-weak-pages" checked>
+                    Учитывать слабые страницы в плане
+                </label>
+                <label>
+                    <input type="checkbox" id="auto-cycle-days-toggle" checked>
+                    Авто-настройка дней на круг по объёму урока
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <h2>План на сегодня</h2>
+    <div class="card" id="today-plan">
+        <p>
+            Сегодня:
+            <strong><span id="today-name"></span>, <span id="today-date"></span></strong>
+            <span class="today-badge">сегодня</span>
+        </p>
+        <ul>
+            <li data-fortress="1" id="today-new">
+                1‑я крепость (новый урок): 5 строк на текущей странице.
+            </li>
+            <li data-fortress="2" id="today-near"></li>
+            <li data-fortress="3" id="today-far"></li>
+            <li id="today-weak-summary"></li>
+        </ul>
+        <p><small>Подробности по каждой крепости — ниже.</small></p>
+        
+        <div id="lesson-progress-box" data-fortress="1">
+            <p><strong>Прогресс на текущей странице:</strong> <span id="lesson-progress-text">0 из 15 строк</span></p>
+            <div id="lesson-progress-bar-outer">
+                <div id="lesson-progress-bar"></div>
+            </div>
+            <button class="btn primary" id="complete-lesson-btn" type="button">✓ Урок выполнен</button>
+            <p><small>Нажми эту кнопку после завершения урока. Прогресс обновится автоматически.</small></p>
+        </div>
+    </div>
+
+    <section class="fortress-block" data-fortress="1">
+        <h2>1-я крепость: новый урок (<span id="lesson-desc-heading">5 строк</span> в день)</h2>
+        <div class="card">
+            <p>
+                <strong>Цель:</strong> выучить
+                <span id="lesson-desc-goal">5 строк</span>
+                на следующей по порядку странице суры «Аль‑Бакара».
+            </p>
+            <ol>
+                <li>Прочитать новый урок (<span id="lesson-desc-step1">5 строк</span>) с мусхафа 3–5 раз медленно, с таджвидом.</li>
+                <li>Разбить на маленькие части (по аяту или смысловым кускам).</li>
+                <li>Каждый кусок:
+                    <ul>
+                        <li>несколько раз прочитать с мусхафа;</li>
+                        <li>затем 10–15 раз повторить по памяти.</li>
+                    </ul>
+                </li>
+                <li>Соединить весь объём урока и прочитать по памяти 5–10 раз подряд.</li>
+                <li>В конце один раз прочитать по памяти так, как будто стоишь в намазе.</li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="fortress-block" data-fortress="2">
+        <h2>2-я крепость: ближнее повторение и связка</h2>
+        <div class="card">
+            <p><strong>Ежедневно по памяти:</strong></p>
+            <ul>
+                <li>Текущая страница (выученная часть этой страницы).</li>
+                <li><strong>+ <span id="near-back-label">2 предыдущие страницы</span></strong> полностью по памяти (если они есть).</li>
+            </ul>
+            <p id="near-review-auto">
+                <strong>Подсказка:</strong> введи текущий номер страницы в настройках выше.
+            </p>
+        </div>
+    </section>
+
+    <section class="fortress-block" data-fortress="3">
+        <h2>3-я крепость: дальнее повторение</h2>
+        <div class="card">
+            <p>
+                Цель — за выбранное количество дней пройти по памяти все страницы,
+                входящие в регулярный круг повторения.  
+                Сайт сам делит объём на блоки и каждый новый день даёт следующий блок.
+            </p>
+            <p>
+                Всего страниц в круге дальнего повторения:
+                <strong><span id="total-pages-info">19</span></strong>.  
+                Дней на круг:
+                <strong><span id="cycle-days-info">6</span></strong>.  
+                Примерный объём:
+                <strong><span id="daily-volume-info">3</span> стр./день</strong>.<br>
+                <small>Диапазон страниц круга: <span id="review-range-text">стр. 1–19</span></small>
+            </p>
+            <p id="third-today-main"></p>
+            <p id="third-today-weak"></p>
+            <button class="reset-btn danger" id="reset-review" type="button">Начать новый круг повторения</button>
+            <p><small>
+                Каждый новый календарный день сайт автоматически переходит к следующему блоку страниц.
+            </small></p>
+        </div>
+    </section>
+
+    <h2>План на завтра (предварительный)</h2>
+    <div class="card" id="tomorrow-plan">
+        <p id="tomorrow-far"></p>
+        <p id="tomorrow-weak"></p>
+        <p><small>Это ориентировочный план, если ты не меняешь настройки.</small></p>
+    </div>
+
+    <h2>Прогноз роста хифза</h2>
+    <div class="card">
+        <div class="settings-toggle">
+            <p><small>Если каждый день делать новый урок в выбранном объёме.</small></p>
+            <button class="btn" id="toggle-forecast" type="button">Скрыть прогноз</button>
+        </div>
+        <div id="forecast-panel">
+            <p id="forecast-intro"></p>
+            <div id="forecast-table-wrapper">
+                <table id="forecast-table">
+                    <thead>
+                    <tr>
+                        <th>Период</th>
+                        <th>Новый хифз</th>
+                        <th>Прирост</th>
+                        <th>Примерный итог</th>
+                    </tr>
+                    </thead>
+                    <tbody id="forecast-tbody"></tbody>
+                </table>
+            </div>
+            <p id="forecast-note"><small></small></p>
+        </div>
+    </div>
+
+    <h3>Особое укрепление слабых страниц</h3>
+    <div class="card">
+        <p>Ты отметил слабые страницы: <strong><span id="weak-list-info">не выбраны</span></strong>.</p>
+        <ul>
+            <li>В дни, когда в блок 3‑й крепости попадают слабые страницы:
+                <ul>
+                    <li>читай их медленнее обычного;</li>
+                    <li>после чтения по памяти сверяйся с мусхафом;</li>
+                    <li>сложные аяты разбирай на части и повторяй каждую часть по 20+ раз.</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <section class="fortress-block" data-fortress="4">
+        <h2>4-я крепость: чтение по памяти в намазе и в течение дня</h2>
+        <div class="card">
+            <p><strong>Принцип:</strong> то, что учишь и повторяешь, должно звучать в намазе.</p>
+            <ul>
+                <li>В обязательных намазах читай по памяти из последних 3–4 страниц.</li>
+                <li>В суннах — более длинные отрывки (½–1 страница за ракаат).</li>
+                <li>В течение дня проговаривать по памяти отдельные аяты.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="fortress-block" data-fortress="5">
+        <h2>5-я крепость: проверка и слушание</h2>
+        <div class="card">
+            <h3>Еженедельная проверка</h3>
+            <ul>
+                <li>1 раз в неделю: прочитать по памяти <strong>5–10 страниц подряд</strong> вслух учителю или записать на диктофон.</li>
+            </ul>
+            <h3>Ежедневное слушание</h3>
+            <ul>
+                <li>Каждый день слушать участок, который учишь (<span id="lesson-desc-5th">5 строк</span>), и/или страницы дальнего повторения.</li>
+            </ul>
+        </div>
+    </section>
+
+    <h2>Заметка на сегодня</h2>
+    <div class="card">
+        <textarea id="daily-note" rows="4" placeholder="Запиши сюда сложные аяты, вопросы для учителя, свои ощущения..."></textarea>
+        <p><small>Заметка сохраняется в браузере и привязана к сегодняшней дате.</small></p>
+    </div>
+
+    <h2>Итоговый дневной чек‑лист</h2>
+    <div class="card checklist" id="daily-checklist">
+        <p><strong>Отметь, что сделал сегодня:</strong></p>
+        <label data-fortress="1">
+            <input type="checkbox" data-task-id="fortress1">
+            1-я крепость: выучил(а) новый урок.
+        </label>
+        <label data-fortress="2">
+            <input type="checkbox" data-task-id="fortress2">
+            2-я крепость: повторил(а) текущую и предыдущие страницы.
+        </label>
+        <label data-fortress="3">
+            <input type="checkbox" data-task-id="fortress3">
+            3-я крепость: сделал(а) дальнее повторение по плану.
+        </label>
+        <label data-fortress="4">
+            <input type="checkbox" data-task-id="fortress4">
+            4-я крепость: читал(а) по памяти в намазе и вне намаза.
+        </label>
+        <label data-fortress="5">
+            <input type="checkbox" data-task-id="fortress5">
+            5-я крепость: слушал(а) Коран и/или сдал(а) часть выученного.
+        </label>
+
+        <div id="daily-progress">
+            <div id="progress-bar-outer">
+                <div id="progress-bar-inner"></div>
+            </div>
+            <p id="progress-text"><small>Прогресс за сегодня: 0 / 0.</small></p>
+        </div>
+
+        <button class="reset-btn" id="reset-checklist" type="button">Сбросить чек‑лист</button>
+        <p><small>Галочки автоматически обнуляются каждый новый день.</small></p>
+    </div>
+
+    <p><small>По мере увеличения выученных страниц просто измени числа в настройках.</small></p>
+</div>
+
+<script>
+// ==================== КОНСТАНТЫ ====================
+const QURAN = {
+    LINES_PER_PAGE: 15,
+    TOTAL_PAGES: 604,
+};
+
+const REVIEW_LIMITS = {
+    MIN_CYCLE_DAYS: 3,
+    MAX_CYCLE_DAYS: 21,
+};
+
+const LESSON_TARGETS = {
+    LINES_5: 3.5,
+    LINES_7: 2.5,
+    FULL_PAGE: 2,
+};
+
+const STORAGE_KEYS = {
+    SETTINGS: 'quranPlanSettings',
+    REVIEW_STATE: 'quranPlanReviewState',
+    CHECKLIST_PREFIX: 'quranPlanChecklist-',
+    NOTE_PREFIX: 'quranPlanNote-',
+};
+
+const DAYS_RU = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
+
+const DEFAULTS = {
+    totalPages: 19,
+    currentPage: 19,
+    linesOnCurrentPage: 0,
+    regularStartPage: 1,
+    cycleDays: 6,
+    weakPages: "8-13",
+    lessonSize: "5",
+    activeFortresses: { "1": true, "2": true, "3": true, "4": true, "5": true },
+    darkMode: false,
+    revisionMode: false,
+    settingsCollapsed: false,
+    useWeakPages: true,
+    compactMode: false,
+    autoCycleDays: true,
+};
+
+// ==================== УТИЛИТЫ ====================
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func(...args), wait);
+    };
+}
+
+function getLocalDateKey(date = new Date()) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+function formatDate(date = new Date()) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
+}
+
+function formatDatePlusDays(days, baseDate = new Date()) {
+    const newDate = new Date(baseDate);
+    newDate.setDate(newDate.getDate() + days);
+    return formatDate(newDate);
+}
+
+// ==================== ХРАНИЛИЩЕ ====================
+function loadSettings() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEYS.SETTINGS);
+        if (!raw) return { ...DEFAULTS };
+        const data = JSON.parse(raw);
+        return { ...DEFAULTS, ...data };
+    } catch (error) {
+        console.error('Ошибка загрузки настроек:', error);
+        return { ...DEFAULTS };
+    }
+}
+
+function saveSettings(settings) {
+    try {
+        localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(settings));
+    } catch (error) {
+        console.error('Ошибка сохранения:', error);
+    }
+}
+
+function loadReviewState() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEYS.REVIEW_STATE);
+        return raw ? JSON.parse(raw) : null;
+    } catch {
+        return null;
+    }
+}
+
+function saveReviewState(state) {
+    try {
+        localStorage.setItem(STORAGE_KEYS.REVIEW_STATE, JSON.stringify(state));
+    } catch (error) {
+        console.error('Ошибка сохранения состояния:', error);
+    }
+}
+
+function loadChecklist(dateKey) {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEYS.CHECKLIST_PREFIX + dateKey);
+        return raw ? JSON.parse(raw) : {};
+    } catch {
+        return {};
+    }
+}
+
+function saveChecklist(dateKey, data) {
+    try {
+        localStorage.setItem(STORAGE_KEYS.CHECKLIST_PREFIX + dateKey, JSON.stringify(data));
+    } catch (error) {
+        console.error('Ошибка сохранения чек-листа:', error);
+    }
+}
+
+function loadNote(dateKey) {
+    try {
+        return localStorage.getItem(STORAGE_KEYS.NOTE_PREFIX + dateKey) || '';
+    } catch {
+        return '';
+    }
+}
+
+function saveNote(dateKey, text) {
+    try {
+        localStorage.setItem(STORAGE_KEYS.NOTE_PREFIX + dateKey, text);
+    } catch (error) {
+        console.error('Ошибка сохранения заметки:', error);
+    }
+}
+
+// ==================== БИЗНЕС-ЛОГИКА ====================
+function parseWeakPages(text, maxPage) {
+    const result = new Set();
+    if (!text) return result;
+    
+    const max = Math.max(1, parseInt(maxPage, 10) || 1);
+    
+    text.split(',').forEach(part => {
+        part = part.trim();
+        if (!part) return;
+        
+        if (part.includes('-')) {
+            const [startStr, endStr] = part.split('-').map(s => s.trim());
+            let start = parseInt(startStr, 10);
+            let end = parseInt(endStr, 10);
+            
+            if (isNaN(start) || isNaN(end)) return;
+            if (start > end) [start, end] = [end, start];
+            if (end < 1 || start > max) return;
+            if (start < 1) start = 1;
+            if (end > max) end = max;
+            
+            for (let i = start; i <= end; i++) {
+                result.add(i);
+            }
+        } else {
+            const num = parseInt(part, 10);
+            if (!isNaN(num) && num >= 1 && num <= max) {
+                result.add(num);
+            }
+        }
+    });
+    
+    return result;
+}
+
+function compressRanges(numbers) {
+    if (!numbers || numbers.length === 0) return '';
+    
+    const sorted = Array.from(new Set(numbers)).sort((a, b) => a - b);
+    const ranges = [];
+    
+    let rangeStart = sorted[0];
+    let rangePrev = sorted[0];
+    
+    for (let i = 1; i < sorted.length; i++) {
+        const current = sorted[i];
+        
+        if (current === rangePrev + 1) {
+            rangePrev = current;
+        } else {
+            if (rangeStart === rangePrev) {
+                ranges.push(String(rangeStart));
+            } else {
+                ranges.push(`${rangeStart}–${rangePrev}`);
+            }
+            rangeStart = rangePrev = current;
+        }
+    }
+    
+    if (rangeStart === rangePrev) {
+        ranges.push(String(rangeStart));
+    } else {
+        ranges.push(`${rangeStart}–${rangePrev}`);
+    }
+    
+    return ranges.join(', ');
+}
+
+function getReviewRange(settings) {
+    const totalAll = Math.max(1, settings.totalPages || 1);
+    let start = settings.regularStartPage || 1;
+    
+    if (start < 1) start = 1;
+    if (start > totalAll) start = totalAll;
+    
+    const end = totalAll;
+    const count = Math.max(0, end - start + 1);
+    
+    return { start, end, count };
+}
+
+function calculateBlockForDay(settings, dayIndex) {
+    const range = getReviewRange(settings);
+    const days = Math.max(1, settings.cycleDays || 1);
+    
+    if (range.count === 0) {
+        return { start: range.start, end: range.start, count: 0 };
+    }
+    
+    const chunkSize = Math.ceil(range.count / days);
+    const start = range.start + (dayIndex * chunkSize);
+    
+    if (start > range.end) {
+        const wrappedIndex = dayIndex % settings.cycleDays;
+        return calculateBlockForDay(settings, wrappedIndex);
+    }
+    
+    const end = Math.min(range.end, start + chunkSize - 1);
+    const count = end - start + 1;
+    
+    return { start, end, count };
+}
+
+function getNextStartPage(settings, currentEnd) {
+    const range = getReviewRange(settings);
+    if (currentEnd >= range.end) {
+        return range.start;
+    }
+    return currentEnd + 1;
+}
+
+function calculateRecommendedCycleDays(pagesCount, lessonSize) {
+    const pages = Math.max(1, pagesCount || 1);
+    
+    let targetPerDay;
+    if (lessonSize === '5') {
+        targetPerDay = LESSON_TARGETS.LINES_5;
+    } else if (lessonSize === '7') {
+        targetPerDay = LESSON_TARGETS.LINES_7;
+    } else {
+        targetPerDay = LESSON_TARGETS.FULL_PAGE;
+    }
+    
+    let days = Math.round(pages / targetPerDay);
+    
+    if (days < REVIEW_LIMITS.MIN_CYCLE_DAYS) days = REVIEW_LIMITS.MIN_CYCLE_DAYS;
+    if (days > REVIEW_LIMITS.MAX_CYCLE_DAYS) days = REVIEW_LIMITS.MAX_CYCLE_DAYS;
+    
+    return days;
+}
+
+function getLinesPerLesson(lessonSize) {
+    if (lessonSize === 'page') return QURAN.LINES_PER_PAGE;
+    if (lessonSize === '7') return 7;
+    return 5;
+}
+
+function completeLesson(settings) {
+    const linesPerLesson = getLinesPerLesson(settings.lessonSize);
+    
+    if (settings.revisionMode || !settings.activeFortresses['1']) {
+        alert('Новый урок отключён (режим только повторения)');
+        return settings;
+    }
+    
+    const newState = { ...settings };
+    newState.linesOnCurrentPage = (newState.linesOnCurrentPage || 0) + linesPerLesson;
+    
+    while (newState.linesOnCurrentPage >= QURAN.LINES_PER_PAGE) {
+        newState.linesOnCurrentPage -= QURAN.LINES_PER_PAGE;
+        newState.currentPage += 1;
+        
+        if (newState.currentPage > newState.totalPages) {
+            newState.totalPages = newState.currentPage;
+        }
+    }
+    
+    return newState;
+}
+
+function getLessonProgressPercent(settings) {
+    const lines = settings.linesOnCurrentPage || 0;
+    return Math.round((lines / QURAN.LINES_PER_PAGE) * 100);
+}
+
+// ==================== ГЛОБАЛЬНОЕ СОСТОЯНИЕ ====================
+const state = {
+    today: new Date(),
+    todayKey: getLocalDateKey(),
+    settings: null,
+    reviewState: null,
+    weakSet: new Set(),
+    checklistData: {},
+};
+
+// ==================== РЕНДЕРИНГ ====================
+function getLessonPhrases(lessonSize) {
+    if (lessonSize === '7') return { nom: '7 строк', acc: '7 строк' };
+    if (lessonSize === 'page') return { nom: 'целая страница', acc: 'целую страницу' };
+    return { nom: '5 строк', acc: '5 строк' };
+}
+
+function updateAllUI() {
+    const phrases = getLessonPhrases(state.settings.lessonSize);
+    
+    // Обновление текстов урока
+    document.getElementById('lesson-desc-short').textContent = phrases.nom;
+    document.getElementById('lesson-desc-heading').textContent = phrases.nom;
+    document.getElementById('lesson-desc-goal').textContent = phrases.acc;
+    document.getElementById('lesson-desc-step1').textContent = phrases.acc;
+    document.getElementById('lesson-desc-5th').textContent = phrases.nom;
+    
+    // Дата
+    document.getElementById('today-name').textContent = DAYS_RU[state.today.getDay()];
+    document.getElementById('today-date').textContent = formatDate(state.today);
+    
+    // Near back label
+    const backCount = state.settings.lessonSize === 'page' ? 1 : 2;
+    document.getElementById('near-back-label').textContent = 
+        backCount === 1 ? '1 предыдущую страницу' : `${backCount} предыдущие страницы`;
+    
+    // 2-я крепость
+    const current = state.settings.currentPage || 0;
+    if (current >= 1) {
+        const start = Math.max(1, current - backCount);
+        const nearText = start === current ? `стр. ${current}` : `стр. ${start}–${current}`;
+        document.getElementById('near-review-auto').innerHTML = 
+            `<strong>Подсказка:</strong> сегодня для 2‑й крепости повтори по памяти: ${nearText}.`;
+        document.getElementById('today-near').textContent = `2‑я крепость (ближнее повторение): ${nearText}.`;
+    }
+    
+    // 3-я крепость
+    const range = getReviewRange(state.settings);
+    const days = Math.max(1, state.settings.cycleDays || 1);
+    const chunkSize = Math.ceil(range.count / days);
+    
+    document.getElementById('total-pages-info').textContent = range.count;
+    document.getElementById('cycle-days-info').textContent = days;
+    document.getElementById('daily-volume-info').textContent = chunkSize;
+    
+    const rangeText = range.start === range.end ? `стр. ${range.start}` : `стр. ${range.start}–${range.end}`;
+    document.getElementById('review-range-text').textContent = rangeText;
+    
+    if (state.reviewState && state.reviewState.todayStart && state.reviewState.todayEnd) {
+        const s = state.reviewState.todayStart;
+        const e = state.reviewState.todayEnd;
+        const count = e - s + 1;
+        const todayRangeText = s === e ? `стр. ${s}` : `стр. ${s}–${e}`;
+        
+        document.getElementById('third-today-main').textContent = 
+            `Сегодня по 3‑й крепости: ${todayRangeText} (${count} стр.).`;
+        document.getElementById('today-far').textContent = 
+            `3‑я крепость (дальнее повторение): ${todayRangeText} (${count} стр.).`;
+        
+        // Слабые страницы
+        if (state.settings.useWeakPages && state.weakSet.size > 0) {
+            const weakInRange = [];
+            for (let p = s; p <= e; p++) {
+                if (state.weakSet.has(p)) weakInRange.push(p);
+            }
+            
+            if (weakInRange.length > 0) {
+                const list = compressRanges(weakInRange);
+                document.getElementById('third-today-weak').textContent = 
+                    `В этот блок попадают слабые страницы: стр. ${list}. Сделай на них особый упор.`;
+                document.getElementById('today-weak-summary').textContent = `Слабые страницы в блоке: стр. ${list}.`;
+            } else {
+                document.getElementById('third-today-weak').textContent = 'Слабые страницы в этот блок не попали.';
+                document.getElementById('today-weak-summary').textContent = '';
+            }
+        } else {
+            document.getElementById('third-today-weak').textContent = '';
+            document.getElementById('today-weak-summary').textContent = '';
+        }
+        
+        // Завтра
+        let nextStart = state.reviewState.nextStartPage || range.start;
+        if (nextStart < range.start || nextStart > range.end) nextStart = range.start;
+        const nextEnd = Math.min(range.end, nextStart + chunkSize - 1);
+        const nextCount = nextEnd - nextStart + 1;
+        const nextRangeText = nextStart === nextEnd ? `стр. ${nextStart}` : `стр. ${nextStart}–${nextEnd}`;
+        
+        document.getElementById('tomorrow-far').textContent = 
+            `Предварительно завтра по 3‑й крепости: ${nextRangeText} (${nextCount} стр.).`;
+    }
+    
+    // Слабые страницы список
+    if (state.weakSet.size === 0) {
+        document.getElementById('weak-list-info').textContent = 'не выбраны';
+    } else {
+        document.getElementById('weak-list-info').textContent = compressRanges(Array.from(state.weakSet));
+    }
+    
+    // Прогресс урока
+    const lines = state.settings.linesOnCurrentPage || 0;
+    const percent = getLessonProgressPercent(state.settings);
+    document.getElementById('lesson-progress-text').textContent = `${lines} из ${QURAN.LINES_PER_PAGE} строк`;
+    document.getElementById('lesson-progress-bar').style.width = `${percent}%`;
+    
+    // Прогноз
+    updateForecast();
+    
+    // Прогресс чек-листа
+    updateProgress();
+    
+    // Видимость крепостей
+    updateFortressVisibility();
+}
+
+function updateForecast() {
+    const linesPerDay = state.settings.revisionMode || !state.settings.activeFortresses['1']
+        ? 0
+        : getLinesPerLesson(state.settings.lessonSize);
+    
+    const horizons = [
+        { label: '7 дней (неделя)', days: 7 },
+        { label: '30 дней (≈ 1 месяц)', days: 30 },
+        { label: '90 дней (≈ 3 месяца)', days: 90 }
+    ];
+    
+    const phrases = getLessonPhrases(state.settings.lessonSize);
+    
+    if (linesPerDay === 0) {
+        document.getElementById('forecast-intro').textContent = 
+            'Сейчас новый урок отключён, поэтому прогноз по новому хифзу равен 0.';
+        document.getElementById('forecast-tbody').innerHTML = '';
+        return;
+    }
+    
+    document.getElementById('forecast-intro').textContent = 
+        `При текущем объёме урока (${phrases.nom}) и ежедневном новом уроке ты добавишь к своему хифзу примерно:`;
+    
+    const currentPages = state.settings.totalPages || 0;
+    
+    const rows = horizons.map(h => {
+        const totalLines = linesPerDay * h.days;
+        const pages = Math.floor(totalLines / QURAN.LINES_PER_PAGE);
+        const remLines = totalLines % QURAN.LINES_PER_PAGE;
+        
+        let newHifzText = `${totalLines} строк`;
+        if (pages > 0) {
+            newHifzText += ` ≈ ${pages} стр.`;
+            if (remLines > 0) newHifzText += ` и ${remLines} строк`;
+        }
+        
+        let growthText = `+${pages} стр.`;
+        if (remLines > 0) growthText += ` и +${remLines} строк`;
+        
+        const approxTotalPages = currentPages + pages + (remLines > 0 ? 1 : 0);
+        const dateStr = formatDatePlusDays(h.days);
+        const totalText = `≈ ${approxTotalPages} стр. к ${dateStr}`;
+        
+        return `<tr>
+            <td>${h.label}</td>
+            <td>${newHifzText}</td>
+            <td>${growthText}</td>
+            <td>${totalText}</td>
+        </tr>`;
+    });
+    
+    document.getElementById('forecast-tbody').innerHTML = rows.join('');
+}
+
+function updateProgress() {
+    const activeList = Object.keys(state.settings.activeFortresses || {}).filter(
+        k => state.settings.activeFortresses[k]
+    );
+    
+    const total = activeList.length;
+    let completed = 0;
+    
+    activeList.forEach(fortNum => {
+        const taskId = `fortress${fortNum}`;
+        if (state.checklistData[taskId]) completed++;
+    });
+    
+    if (total > 0) {
+        const percent = Math.round((completed / total) * 100);
+        document.getElementById('progress-bar-inner').style.width = `${percent}%`;
+        
+        let text = `<small>Прогресс за сегодня: ${completed} / ${total} крепостей (${percent}%).</small>`;
+        if (completed === total) {
+            text += ' <small>✅ Все активные крепости на сегодня выполнены!</small>';
+        }
+        document.getElementById('progress-text').innerHTML = text;
+    } else {
+        document.getElementById('progress-bar-inner').style.width = '0%';
+        document.getElementById('progress-text').innerHTML = 
+            '<small>Не выбрано ни одной активной крепости.</small>';
+    }
+}
+
+function updateFortressVisibility() {
+    const active = state.settings.activeFortresses || {};
+    
+    document.querySelectorAll('.fortress-block').forEach(block => {
+        const num = block.getAttribute('data-fortress');
+        if (num) block.style.display = active[num] ? '' : 'none';
+    });
+    
+    document.querySelectorAll('#today-plan [data-fortress]').forEach(item => {
+        const num = item.getAttribute('data-fortress');
+        if (num) item.style.display = active[num] ? 'list-item' : 'none';
+    });
+    
+    document.querySelectorAll('#daily-checklist label[data-fortress]').forEach(label => {
+        const num = label.getAttribute('data-fortress');
+        if (num) label.style.display = active[num] ? 'block' : 'none';
+    });
+    
+    document.querySelectorAll('[data-fortress="1"]').forEach(el => {
+        if (el.id !== 'use-f1') {
+            el.style.display = active['1'] ? '' : 'none';
+        }
+    });
+}
+
+// ==================== ИНИЦИАЛИЗАЦИЯ ====================
+function initReviewState() {
+    const range = getReviewRange(state.settings);
+    
+    if (range.count === 0) {
+        state.reviewState = null;
+        return;
+    }
+    
+    if (!state.reviewState || state.reviewState.lastDate !== state.todayKey) {
+        let dayIndex = 0;
+        
+        if (state.reviewState && state.reviewState.nextStartPage) {
+            const chunkSize = Math.ceil(range.count / state.settings.cycleDays);
+            dayIndex = Math.floor((state.reviewState.nextStartPage - range.start) / chunkSize);
+        }
+        
+        const block = calculateBlockForDay(state.settings, dayIndex);
+        
+        state.reviewState = {
+            lastDate: state.todayKey,
+            todayStart: block.start,
+            todayEnd: block.end,
+            nextStartPage: getNextStartPage(state.settings, block.end),
+        };
+        
+        saveReviewState(state.reviewState);
+    }
+}
+
+function init() {
+    // Загрузка данных
+    state.settings = loadSettings();
+    state.reviewState = loadReviewState();
+    state.weakSet = parseWeakPages(state.settings.weakPages, state.settings.totalPages);
+    
+    // Инициализация review state
+    initReviewState();
+    
+    // Применение настроек к UI
+    document.getElementById('total-pages').value = state.settings.totalPages;
+    document.getElementById('current-page').value = state.settings.currentPage;
+    document.getElementById('start-page').value = state.settings.regularStartPage;
+    document.getElementById('cycle-days').value = state.settings.cycleDays;
+    document.getElementById('weak-pages').value = state.settings.weakPages || '';
+    document.getElementById('lesson-size').value = state.settings.lessonSize || '5';
+    
+    ['1','2','3','4','5'].forEach(num => {
+        document.getElementById(`use-f${num}`).checked = !!state.settings.activeFortresses[num];
+    });
+    
+    document.getElementById('revision-mode-toggle').checked = state.settings.revisionMode;
+    document.getElementById('dark-mode-toggle').checked = state.settings.darkMode;
+    document.getElementById('compact-mode-toggle').checked = state.settings.compactMode;
+    document.getElementById('use-weak-pages').checked = state.settings.useWeakPages;
+    document.getElementById('auto-cycle-days-toggle').checked = state.settings.autoCycleDays;
+    
+    if (state.settings.revisionMode) {
+        document.getElementById('use-f1').disabled = true;
+    }
+    
+    if (state.settings.darkMode) {
+        document.body.classList.add('dark');
+    }
+    
+    if (state.settings.compactMode) {
+        document.body.classList.add('compact');
+    }
+    
+    if (state.settings.settingsCollapsed) {
+        document.getElementById('settings-panel').classList.add('hidden');
+        document.getElementById('toggle-settings').textContent = 'Показать настройки';
+    }
+    
+    // Чек-лист
+    state.checklistData = loadChecklist(state.todayKey);
+    document.querySelectorAll('#daily-checklist input[type="checkbox"]').forEach(cb => {
+        const taskId = cb.getAttribute('data-task-id');
+        if (state.checklistData[taskId]) cb.checked = true;
+    });
+    
+    // Заметка
+    document.getElementById('daily-note').value = loadNote(state.todayKey);
+    
+    // Event listeners
+    const settingsHandler = debounce(() => {
+        const totalPages = parseInt(document.getElementById('total-pages').value, 10) || 1;
+        const currentPage = parseInt(document.getElementById('current-page').value, 10) || 1;
+        const startPage = parseInt(document.getElementById('start-page').value, 10) || 1;
+        let cycleDays = parseInt(document.getElementById('cycle-days').value, 10) || 1;
+        const weakPages = document.getElementById('weak-pages').value || '';
+        const lessonSize = document.getElementById('lesson-size').value || '5';
+        
+        state.settings.totalPages = totalPages;
+        state.settings.currentPage = currentPage;
+        state.settings.regularStartPage = startPage;
+        state.settings.weakPages = weakPages;
+        state.settings.lessonSize = lessonSize;
+        
+        if (state.settings.autoCycleDays) {
+            const range = getReviewRange(state.settings);
+            cycleDays = calculateRecommendedCycleDays(range.count, lessonSize);
+            document.getElementById('cycle-days').value = cycleDays;
+        }
+        
+        state.settings.cycleDays = cycleDays;
+        
+        saveSettings(state.settings);
+        state.weakSet = parseWeakPages(weakPages, totalPages);
+        
+        const range = getReviewRange(state.settings);
+        if (range.count > 0 && (!state.reviewState || 
+            state.reviewState.todayStart < range.start || 
+            state.reviewState.todayEnd > range.end)) {
+            const block = calculateBlockForDay(state.settings, 0);
+            state.reviewState = {
+                lastDate: state.todayKey,
+                todayStart: block.start,
+                todayEnd: block.end,
+                nextStartPage: getNextStartPage(state.settings, block.end)
+            };
+            saveReviewState(state.reviewState);
+        }
+        
+        updateAllUI();
+    }, 300);
+    
+    ['total-pages', 'current-page', 'start-page', 'cycle-days', 'weak-pages', 'lesson-size'].forEach(id => {
+        document.getElementById(id).addEventListener('input', settingsHandler);
+    });
+    
+    // Крепости
+    ['1','2','3','4','5'].forEach(num => {
+        document.getElementById(`use-f${num}`).addEventListener('change', (e) => {
+            state.settings.activeFortresses[num] = e.target.checked;
+            saveSettings(state.settings);
+            updateFortressVisibility();
+            updateForecast();
+            updateProgress();
+        });
+    });
+    
+    // Режимы
+    document.getElementById('revision-mode-toggle').addEventListener('change', (e) => {
+        state.settings.revisionMode = e.target.checked;
+        if (state.settings.revisionMode) {
+            state.settings.activeFortresses['1'] = false;
+            document.getElementById('use-f1').checked = false;
+            document.getElementById('use-f1').disabled = true;
+        } else {
+            document.getElementById('use-f1').disabled = false;
+            state.settings.activeFortresses['1'] = true;
+            document.getElementById('use-f1').checked = true;
+        }
+        saveSettings(state.settings);
+        updateFortressVisibility();
+        updateForecast();
+        updateProgress();
+    });
+    
+    document.getElementById('dark-mode-toggle').addEventListener('change', (e) => {
+        state.settings.darkMode = e.target.checked;
+        saveSettings(state.settings);
+        document.body.classList.toggle('dark', e.target.checked);
+    });
+    
+    document.getElementById('compact-mode-toggle').addEventListener('change', (e) => {
+        state.settings.compactMode = e.target.checked;
+        saveSettings(state.settings);
+        document.body.classList.toggle('compact', e.target.checked);
+    });
+    
+    document.getElementById('use-weak-pages').addEventListener('change', (e) => {
+        state.settings.useWeakPages = e.target.checked;
+        saveSettings(state.settings);
+        updateAllUI();
+    });
+    
+    document.getElementById('auto-cycle-days-toggle').addEventListener('change', (e) => {
+        state.settings.autoCycleDays = e.target.checked;
+        saveSettings(state.settings);
+        if (state.settings.autoCycleDays) {
+            const range = getReviewRange(state.settings);
+            const newCycleDays = calculateRecommendedCycleDays(range.count, state.settings.lessonSize);
+            state.settings.cycleDays = newCycleDays;
+            document.getElementById('cycle-days').value = newCycleDays;
+            saveSettings(state.settings);
+            const block = calculateBlockForDay(state.settings, 0);
+            state.reviewState = {
+                lastDate: state.todayKey,
+                todayStart: block.start,
+                todayEnd: block.end,
+                nextStartPage: getNextStartPage(state.settings, block.end)
+            };
+            saveReviewState(state.reviewState);
+            updateAllUI();
+        }
+    });
+    
+    // Кнопки
+    document.getElementById('reset-review').addEventListener('click', () => {
+        if (!confirm('Начать новый круг повторения с начальной страницы круга?')) return;
+        
+        const block = calculateBlockForDay(state.settings, 0);
+        state.reviewState = {
+            lastDate: state.todayKey,
+            todayStart: block.start,
+            todayEnd: block.end,
+            nextStartPage: getNextStartPage(state.settings, block.end)
+        };
+        saveReviewState(state.reviewState);
+        updateAllUI();
+        alert('✅ Круг повторения начат заново');
+    });
+    
+    document.getElementById('complete-lesson-btn').addEventListener('click', () => {
+        const pageChanged = state.settings.currentPage;
+        state.settings = completeLesson(state.settings);
+        const newPage = state.settings.currentPage;
+        
+        saveSettings(state.settings);
+        
+        document.getElementById('current-page').value = state.settings.currentPage;
+        document.getElementById('total-pages').value = state.settings.totalPages;
+        
+        updateAllUI();
+        
+        if (newPage > pageChanged) {
+            alert(`✅ Страница ${pageChanged} завершена! Переходим на страницу ${newPage}.`);
+        } else {
+            alert('✅ Урок выполнен! Прогресс сохранён.');
+        }
+    });
+    
+    document.getElementById('reset-checklist').addEventListener('click', () => {
+        if (!confirm('Сбросить весь чек-лист за сегодня?')) return;
+        
+        state.checklistData = {};
+        saveChecklist(state.todayKey, state.checklistData);
+        
+        document.querySelectorAll('#daily-checklist input[type="checkbox"]').forEach(cb => {
+            cb.checked = false;
+        });
+        
+        updateProgress();
+    });
+    
+    document.getElementById('toggle-settings').addEventListener('click', () => {
+        state.settings.settingsCollapsed = !state.settings.settingsCollapsed;
+        saveSettings(state.settings);
+        
+        const panel = document.getElementById('settings-panel');
+        const btn = document.getElementById('toggle-settings');
+        
+        if (state.settings.settingsCollapsed) {
+            panel.classList.add('hidden');
+            btn.textContent = 'Показать настройки';
+        } else {
+            panel.classList.remove('hidden');
+            btn.textContent = 'Скрыть настройки';
+        }
+    });
+    
+    document.getElementById('toggle-forecast').addEventListener('click', () => {
+        const panel = document.getElementById('forecast-panel');
+        const btn = document.getElementById('toggle-forecast');
+        const hidden = panel.classList.toggle('hidden');
+        btn.textContent = hidden ? 'Показать прогноз' : 'Скрыть прогноз';
+    });
+    
+    document.getElementById('print-btn').addEventListener('click', () => {
+        window.print();
+    });
+    
+    // Чек-лист
+    document.querySelectorAll('#daily-checklist input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener('change', () => {
+            const taskId = cb.getAttribute('data-task-id');
+            state.checklistData[taskId] = cb.checked;
+            saveChecklist(state.todayKey, state.checklistData);
+            updateProgress();
+        });
+    });
+    
+    // Заметка
+    const noteHandler = debounce((text) => {
+        saveNote(state.todayKey, text);
+    }, 500);
+    
+    document.getElementById('daily-note').addEventListener('input', (e) => {
+        noteHandler(e.target.value);
+    });
+    
+    // Первичное обновление UI
+    updateAllUI();
+    
+    console.log('✅ Приложение инициализировано');
+}
+
+// Запуск
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
+</script>
+
+</body>
+</html>
