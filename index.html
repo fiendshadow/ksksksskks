@@ -994,6 +994,10 @@ function updateAllUI() {
     document.getElementById('lesson-desc-step1').textContent = phrases.acc;
     document.getElementById('lesson-desc-5th').textContent = phrases.nom;
     
+    // ✅ ИСПРАВЛЕНИЕ: Обновляем текст первой крепости в плане на сегодня
+    document.getElementById('today-new').textContent = 
+        `1‑я крепость (новый урок): ${phrases.acc} на текущей странице.`;
+    
     // Дата
     document.getElementById('today-name').textContent = DAYS_RU[state.today.getDay()];
     document.getElementById('today-date').textContent = formatDate(state.today);
@@ -1066,6 +1070,24 @@ function updateAllUI() {
         
         document.getElementById('tomorrow-far').textContent = 
             `Предварительно завтра по 3‑й крепости: ${nextRangeText} (${nextCount} стр.).`;
+        
+        // Слабые страницы завтра
+        if (state.settings.useWeakPages && state.weakSet.size > 0) {
+            const weakTomorrow = [];
+            for (let p = nextStart; p <= nextEnd; p++) {
+                if (state.weakSet.has(p)) weakTomorrow.push(p);
+            }
+            
+            if (weakTomorrow.length > 0) {
+                const list = compressRanges(weakTomorrow);
+                document.getElementById('tomorrow-weak').textContent = 
+                    `Слабые страницы в блоке: стр. ${list}.`;
+            } else {
+                document.getElementById('tomorrow-weak').textContent = 'Слабые страницы в этот блок не попадают.';
+            }
+        } else {
+            document.getElementById('tomorrow-weak').textContent = '';
+        }
     }
     
     // Слабые страницы список
