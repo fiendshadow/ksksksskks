@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>План заучивания Корана — Генератор</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            font-size: 12pt;
+            line-height: 1.5;
+            background: #f5f5f5;
+        }
+
+        .setup-form {
+            max-width: 550px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .setup-form h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 20pt;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            font-size: 12pt;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #333;
+            outline: none;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: #666;
+            font-size: 10pt;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .info-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 5px;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 10pt;
+        }
+
+        .info-box.auto-detected {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 14pt;
+            font-weight: bold;
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #555;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            margin-top: 5px;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .tables-container {
+            display: none;
+        }
+
+        .action-buttons {
+            max-width: 500px;
+            margin: 20px auto;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons button {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .print-btn {
+            padding: 15px 30px;
+            font-size: 14pt;
+            font-weight: bold;
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .print-btn:hover {
+            background: #555;
+        }
+
+        .download-btn {
+            padding: 15px 30px;
+            font-size: 14pt;
+            font-weight: bold;
+            background: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            background: #218838;
+        }
+
+        .download-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+
+        .back-btn {
+            display: block;
+            max-width: 500px;
+            margin: 10px auto;
+            padding: 12px 30px;
+            font-size: 12pt;
+            background: #fff;
+            color: #333;
+            border: 2px solid #333;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-content {
+            background: #fff;
+            padding: 30px 50px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #333;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .page {
+            background: #fff;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            page-break-after: always;
+        }
+
+        .page:last-of-type {
+            page-break-after: avoid;
+        }
+
+        .page.rtl {
+            direction: rtl;
+            font-family: 'Traditional Arabic', 'Simplified Arabic', Arial, sans-serif;
+        }
+
+        h1.page-title {
+            text-align: center;
+            font-size: 18pt;
+            margin-bottom: 15px;
+        }
+
+        .header-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 2px solid #333;
+            flex-wrap: wrap;
+        }
+
+        .header-field {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10pt;
+        }
+
+        .header-value {
+            font-weight: bold;
+            border-bottom: 2px solid #333;
+            padding: 0 6px;
+        }
+
+        .week-title {
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 13pt;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f0f0f0;
+            border: 1px solid #333;
+            padding: 8px 4px;
+            font-size: 8pt;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        td {
+            border: 1px solid #333;
+            padding: 8px 4px;
+            text-align: center;
+            font-size: 8pt;
+        }
+
+        .day-num {
+            font-weight: bold;
+            width: 35px;
+            background: #f9f9f9;
+        }
+
+        .exam-row {
+            background: #e0e0e0;
+            font-weight: bold;
+        }
+
+        .exam-cell {
+            font-size: 9pt;
+        }
+
+        .checkbox-col {
+            width: 30px;
+        }
+
+        .checkbox-box {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #333;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 12px;
+            padding: 8px;
+            border: 1px solid #333;
+            font-size: 8pt;
+        }
+
+        .info-section {
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px solid #333;
+            font-size: 8pt;
+        }
+
+        .info-section h3 {
+            font-size: 10pt;
+            margin-bottom: 8px;
+        }
+
+        .info-section ul {
+            margin-left: 18px;
+        }
+
+        .page.rtl .info-section ul {
+            margin-left: 0;
+            margin-right: 18px;
+        }
+
+        .info-section li {
+            margin-bottom: 4px;
+        }
+
+        .info-section .note {
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px dashed #999;
+            font-style: italic;
+        }
+
+        .system-badge {
+            display: inline-block;
+            background: #333;
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 9pt;
+            margin-left: 10px;
+        }
+
+        .page.rtl .system-badge {
+            margin-left: 0;
+            margin-right: 10px;
+        }
+
+        @media print {
+            body {
+                background: #fff;
+                padding: 0;
+            }
+
+            .setup-form,
+            .action-buttons,
+            .back-btn {
+                display: none !important;
+            }
+
+            .tables-container {
+                display: block !important;
+            }
+
+            .page {
+                box-shadow: none;
+                margin: 0;
+                padding: 15px;
+                max-width: 100%;
+                page-break-after: always;
+            }
+
+            .page:last-of-type {
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <h3 id="loadingText">Создание PDF...</h3>
+            <p id="loadingProgress">Пожалуйста, подождите</p>
+        </div>
+    </div>
+
+    <div class="setup-form" id="setupForm">
+        <h1>📖 План заучивания Корана</h1>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label>Язык таблицы:</label>
+                <select id="language" onchange="saveSettings()">
+                    <option value="ru">Русский</option>
+                    <option value="ar">العربية (Арабский)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Стиль цифр:</label>
+                <select id="numerals" onchange="saveSettings()">
+                    <option value="western">123 (Западные)</option>
+                    <option value="arabic">١٢٣ (Арабские)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Уже выучено (диапазон страниц):</label>
+            <div class="form-row">
+                <div class="form-group">
+                    <input type="number" id="knownFrom" placeholder="С какой" min="1" max="604" value="3" oninput="updateRecommendation(); saveSettings()">
+                </div>
+                <div class="form-group">
+                    <input type="number" id="knownTo" placeholder="По какую" min="1" max="604" value="20" oninput="updateRecommendation(); saveSettings()">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>С какой страницы начинать повторение:</label>
+            <input type="number" id="reviewFrom" placeholder="Например: 3" min="1" max="604" value="3" oninput="saveSettings()">
+        </div>
+
+        <div class="form-group">
+            <label>Следующая новая страница:</label>
+            <input type="number" id="newPage" placeholder="Например: 21" min="1" max="604" value="21" oninput="saveSettings()">
+        </div>
+
+        <div class="form-group">
+            <label>Сколько учить в день:</label>
+            <select id="dailyAmount" onchange="saveSettings()">
+                <option value="0.5">Полстраницы (½)</option>
+                <option value="1">Одна страница</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Круг повторения:</label>
+            <select id="cycleLength" onchange="updateRecommendation(); saveSettings()">
+                <option value="7">7 дней (1 неделя)</option>
+                <option value="14">14 дней (2 недели)</option>
+                <option value="21">21 день (3 недели)</option>
+            </select>
+            <small>Рекомендация зависит от объёма выученного</small>
+        </div>
+
+        <div class="form-group">
+            <label>Система повторения:</label>
+            <select id="reviewSystem" onchange="saveSettings()">
+                <option value="pages">По страницам (до 2 джузов)</option>
+                <option value="juz">По джузам (2+ джузов)</option>
+            </select>
+            <small>«По джузам» = каждый день повторяешь 1 джуз целиком</small>
+        </div>
+
+        <div id="recommendationBox" class="info-box auto-detected">
+            📊 <strong>Авто-рекомендация:</strong> <span id="recommendationText">Загрузка...</span>
+        </div>
+
+        <button class="btn" onclick="generateTables()">Создать план</button>
+        <button class="btn btn-secondary" onclick="clearSettings()">🗑️ Сбросить настройки</button>
+    </div>
+
+    <div class="tables-container" id="tablesContainer">
+        <div class="action-buttons">
+            <button class="print-btn" onclick="window.print()">🖨️ Распечатать</button>
+            <button class="download-btn" id="downloadBtn" onclick="downloadPDF()">📥 Скачать PDF</button>
+        </div>
+        <button class="back-btn" onclick="goBack()">← Вернуться к настройкам</button>
+        
+        <div id="tablesContent"></div>
+    </div>
+
+    <!-- Подключаем библиотеки для PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script>
+        const STORAGE_KEY = 'quranPlanSettings';
+
+        const translations = {
+            ru: {
+                title: '📖 План заучивания Корана',
+                learned: 'Выучено:',
+                goal: 'Цель:',
+                pace: 'Темп:',
+                cycle: 'Круг:',
+                days: 'дн.',
+                pagePerDay: 'стр./день',
+                week: 'НЕДЕЛЯ',
+                pages: 'стр.',
+                total: 'Итого:',
+                day: 'День',
+                hifz: 'Хифз (новое)',
+                nearReview: 'Ближнее повт.',
+                farReview: 'Дальнее повт.',
+                juzReview: 'Джуз дня',
+                prep: 'Подготовка',
+                exam: 'ЭКЗАМЕН:',
+                examPart: 'ЭКЗАМЕН (часть):',
+                byHeart: 'наизусть',
+                rest: 'Отдых / доп. повторение',
+                upper: 'верхняя половина',
+                lower: 'нижняя половина',
+                times15: 'прочитать 15 раз',
+                page: 'страница',
+                juz: 'джуз',
+                dailySchedule: 'Ежедневный порядок:',
+                afterFajr: 'После Фаджра:',
+                hifzNew: 'Хифз — заучивание нового',
+                afterDhuhr: 'После Зухра/Асра:',
+                nearReviewDesc: 'Ближнее повторение (эта неделя)',
+                afterAsr: 'После Асра:',
+                juzReviewDesc: 'Повторение джуза дня (целиком)',
+                afterMaghrib: 'После Магриба:',
+                farReviewDesc: 'Дальнее повторение (старый багаж)',
+                beforeSleep: 'Перед сном:',
+                prepDesc: 'Подготовка — чтение 15 раз + слушать',
+                examDay: 'День экзамена:',
+                examDayDesc: 'Рассказать всё наизусть',
+                pageAbbr: 'стр.',
+                juzAbbr: 'дж.',
+                bigVolumeNote: '⚠️ При большом объёме (2+ джуза): разделите экзамен на 2-3 сессии или дня.',
+                juzSystemNote: '📖 Система «Джуз в день»: каждый день повторяй 1 джуз целиком по кругу. Это сохраняет связность текста.',
+                twoWeekNote: '📅 Двухнедельный цикл: первую неделю повторяй первую половину багажа, вторую — вторую половину.',
+                threeWeekNote: '📅 Трёхнедельный цикл (21 день): оптимален для хафиза всего Корана. 1-1.5 джуза в день.'
+            },
+            ar: {
+                title: '📖 جدول حفظ القرآن الكريم',
+                learned: 'المحفوظ:',
+                goal: 'الهدف:',
+                pace: 'الورد:',
+                cycle: 'الدورة:',
+                days: 'يوم',
+                pagePerDay: 'ص/يوم',
+                week: 'الأسبوع',
+                pages: 'ص',
+                total: 'المجموع:',
+                day: 'اليوم',
+                hifz: 'الحفظ',
+                nearReview: 'المراجعة القريبة',
+                farReview: 'المراجعة البعيدة',
+                juzReview: 'جزء اليوم',
+                prep: 'التحضير',
+                exam: 'الاختبار:',
+                examPart: 'الاختبار (جزء):',
+                byHeart: 'غيباً',
+                rest: 'راحة / مراجعة إضافية',
+                upper: 'النصف العلوي',
+                lower: 'النصف السفلي',
+                times15: 'القراءة ١٥ مرة',
+                page: 'صفحة',
+                juz: 'جزء',
+                dailySchedule: 'البرنامج اليومي:',
+                afterFajr: 'بعد الفجر:',
+                hifzNew: 'الحفظ الجديد',
+                afterDhuhr: 'بعد الظهر:',
+                nearReviewDesc: 'المراجعة القريبة (حفظ هذا الأسبوع)',
+                afterAsr: 'بعد العصر:',
+                juzReviewDesc: 'مراجعة جزء اليوم (كاملاً)',
+                afterMaghrib: 'بعد المغرب:',
+                farReviewDesc: 'المراجعة البعيدة (المحفوظ القديم)',
+                beforeSleep: 'قبل النوم:',
+                prepDesc: 'التحضير — قراءة ١٥ مرة + الاستماع',
+                examDay: 'يوم الاختبار:',
+                examDayDesc: 'تسميع جميع المحفوظ',
+                pageAbbr: 'ص',
+                juzAbbr: 'ج',
+                bigVolumeNote: '⚠️ عند كثرة المحفوظ (جزآن+): قسّم الاختبار على ٢-٣ جلسات أو أيام.',
+                juzSystemNote: '📖 نظام «جزء في اليوم»: راجع جزءاً كاملاً كل يوم بالتناوب. هذا يحافظ على ترابط النص.',
+                twoWeekNote: '📅 دورة الأسبوعين: الأسبوع الأول راجع النصف الأول، والثاني راجع النصف الثاني.',
+                threeWeekNote: '📅 دورة ٢١ يوماً: مثالية لحافظ القرآن الكامل. ١-١.٥ جزء يومياً.'
+            }
+        };
+
+        const arabicWeekNames = {
+            1: 'الأول', 2: 'الثاني', 3: 'الثالث', 4: 'الرابع',
+            5: 'الخامس', 6: 'السادس'
+        };
+
+        function saveSettings() {
+            const settings = {
+                language: document.getElementById('language').value,
+                numerals: document.getElementById('numerals').value,
+                knownFrom: document.getElementById('knownFrom').value,
+                knownTo: document.getElementById('knownTo').value,
+                reviewFrom: document.getElementById('reviewFrom').value,
+                newPage: document.getElementById('newPage').value,
+                dailyAmount: document.getElementById('dailyAmount').value,
+                cycleLength: document.getElementById('cycleLength').value,
+                reviewSystem: document.getElementById('reviewSystem').value
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+        }
+
+        function loadSettings() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                const settings = JSON.parse(saved);
+                document.getElementById('language').value = settings.language || 'ru';
+                document.getElementById('numerals').value = settings.numerals || 'western';
+                document.getElementById('knownFrom').value = settings.knownFrom || 3;
+                document.getElementById('knownTo').value = settings.knownTo || 20;
+                document.getElementById('reviewFrom').value = settings.reviewFrom || 3;
+                document.getElementById('newPage').value = settings.newPage || 21;
+                document.getElementById('dailyAmount').value = settings.dailyAmount || '0.5';
+                document.getElementById('cycleLength').value = settings.cycleLength || '7';
+                document.getElementById('reviewSystem').value = settings.reviewSystem || 'pages';
+            }
+        }
+
+        function clearSettings() {
+            if (confirm('Вы уверены, что хотите сбросить все настройки?')) {
+                localStorage.removeItem(STORAGE_KEY);
+                location.reload();
+            }
+        }
+
+        function toArabicNumerals(num) {
+            const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+            return String(num).split('').map(d => arabicDigits[parseInt(d)] || d).join('');
+        }
+
+        function formatNumber(num, useArabic) {
+            return useArabic ? toArabicNumerals(num) : String(num);
+        }
+
+        function updateRecommendation() {
+            const knownFrom = parseInt(document.getElementById('knownFrom').value) || 3;
+            const knownTo = parseInt(document.getElementById('knownTo').value) || 20;
+            const totalPages = knownTo - knownFrom + 1;
+            const juzCount = Math.ceil(totalPages / 20);
+
+            let recommendation = '';
+            let suggestedCycle = '7';
+            let suggestedSystem = 'pages';
+
+            if (totalPages <= 40) {
+                recommendation = `${totalPages} стр. (~${juzCount} джуз) → Круг 7 дней, система «по страницам»`;
+                suggestedCycle = '7';
+                suggestedSystem = 'pages';
+            } else if (totalPages <= 100) {
+                recommendation = `${totalPages} стр. (~${juzCount} джузов) → Круг 7 дней, система «по джузам» (1 джуз/день)`;
+                suggestedCycle = '7';
+                suggestedSystem = 'juz';
+            } else if (totalPages <= 200) {
+                recommendation = `${totalPages} стр. (~${juzCount} джузов) → Круг 14 дней, система «по джузам» (1 джуз/день)`;
+                suggestedCycle = '14';
+                suggestedSystem = 'juz';
+            } else if (totalPages <= 300) {
+                recommendation = `${totalPages} стр. (~${juzCount} джузов) → Круг 14 дней, система «по джузам» (1.5 джуза/день)`;
+                suggestedCycle = '14';
+                suggestedSystem = 'juz';
+            } else {
+                recommendation = `${totalPages} стр. (~${juzCount} джузов) → Круг 21 день, система «по джузам» (1.5 джуза/день)`;
+                suggestedCycle = '21';
+                suggestedSystem = 'juz';
+            }
+
+            document.getElementById('recommendationText').textContent = recommendation;
+            document.getElementById('cycleLength').value = suggestedCycle;
+            document.getElementById('reviewSystem').value = suggestedSystem;
+            saveSettings();
+        }
+
+        async function downloadPDF() {
+            const button = document.getElementById('downloadBtn');
+            const overlay = document.getElementById('loadingOverlay');
+            const loadingText = document.getElementById('loadingText');
+            const loadingProgress = document.getElementById('loadingProgress');
+            
+            button.disabled = true;
+            overlay.style.display = 'flex';
+
+            try {
+                const { jsPDF } = window.jspdf;
+                const pages = document.querySelectorAll('.page');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                for (let i = 0; i < pages.length; i++) {
+                    loadingProgress.textContent = `Страница ${i + 1} из ${pages.length}`;
+                    
+                    const canvas = await html2canvas(pages[i], {
+                        scale: 2,
+                        useCORS: true,
+                        logging: false,
+                        backgroundColor: '#ffffff'
+                    });
+                    
+                    const imgData = canvas.toDataURL('image/png');
+                    const imgWidth = 210; // A4 width in mm
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                    
+                    if (i > 0) {
+                        pdf.addPage();
+                    }
+                    
+                    pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                }
+                
+                loadingText.textContent = 'Сохранение файла...';
+                const fileName = `quran_plan_${new Date().toISOString().split('T')[0]}.pdf`;
+                pdf.save(fileName);
+                
+            } catch (error) {
+                console.error('Ошибка при создании PDF:', error);
+                alert('Произошла ошибка при создании PDF. Попробуйте ещё раз.');
+            } finally {
+                button.disabled = false;
+                overlay.style.display = 'none';
+                loadingText.textContent = 'Создание PDF...';
+                loadingProgress.textContent = 'Пожалуйста, подождите';
+            }
+        }
+
+        function generateTables() {
+            const language = document.getElementById('language').value;
+            const numerals = document.getElementById('numerals').value;
+            const knownFrom = parseInt(document.getElementById('knownFrom').value);
+            const knownTo = parseInt(document.getElementById('knownTo').value);
+            const reviewFrom = parseInt(document.getElementById('reviewFrom').value);
+            const newPage = parseInt(document.getElementById('newPage').value);
+            const dailyAmount = parseFloat(document.getElementById('dailyAmount').value);
+            const cycleLength = parseInt(document.getElementById('cycleLength').value);
+            const reviewSystem = document.getElementById('reviewSystem').value;
+
+            if (!knownFrom || !knownTo || !reviewFrom || !newPage) {
+                alert('Пожалуйста, заполните все поля');
+                return;
+            }
+
+            const t = translations[language];
+            const useArabicNumerals = (numerals === 'arabic');
+            const isRTL = (language === 'ar');
+            
+            let studyDays;
+            if (cycleLength === 7) studyDays = 6;
+            else if (cycleLength === 14) studyDays = 12;
+            else studyDays = 18;
+            
+            const weeklyPages = dailyAmount * studyDays;
+            const dailyText = dailyAmount === 0.5 ? '½' : formatNumber(1, useArabicNumerals);
+            
+            let weeksToGenerate;
+            if (cycleLength === 7) weeksToGenerate = 4;
+            else if (cycleLength === 14) weeksToGenerate = 2;
+            else weeksToGenerate = 1;
+
+            let html = '';
+            let currentNewPage = newPage;
+            let currentKnownTo = knownTo;
+
+            for (let cycle = 1; cycle <= weeksToGenerate; cycle++) {
+                const cycleStartPage = currentNewPage;
+                const cycleEndPage = currentNewPage + weeklyPages - 1;
+
+                html += generateCyclePage(
+                    cycle,
+                    reviewFrom,
+                    currentKnownTo,
+                    cycleEndPage,
+                    dailyText,
+                    cycleStartPage,
+                    cycleEndPage,
+                    dailyAmount,
+                    reviewFrom,
+                    t,
+                    useArabicNumerals,
+                    isRTL,
+                    language,
+                    cycleLength,
+                    reviewSystem
+                );
+
+                currentKnownTo = cycleEndPage;
+                currentNewPage = cycleEndPage + 1;
+            }
+
+            document.getElementById('tablesContent').innerHTML = html;
+            document.getElementById('setupForm').style.display = 'none';
+            document.getElementById('tablesContainer').style.display = 'block';
+        }
+
+        function generateCyclePage(cycleNum, reviewFrom, knownTo, goalPage, dailyText, cycleStart, cycleEnd, dailyAmount, farReviewStart, t, useArabicNumerals, isRTL, language, cycleLength, reviewSystem) {
+            const fn = (n) => formatNumber(n, useArabicNumerals);
+            const pageAbbr = t.pageAbbr;
+            const juzAbbr = t.juzAbbr;
+            
+            let studyDays;
+            if (cycleLength === 7) studyDays = 6;
+            else if (cycleLength === 14) studyDays = 12;
+            else studyDays = 18;
+            
+            const totalDays = cycleLength;
+
+            const totalKnownPages = knownTo - farReviewStart + 1;
+            const juzCount = Math.ceil(totalKnownPages / 20);
+
+            let rows = '';
+            let currentPage = cycleStart;
+            let farReviewCurrent = farReviewStart;
+
+            const reviewPerDay = reviewSystem === 'juz' 
+                ? 20 
+                : Math.ceil(totalKnownPages / studyDays);
+
+            let currentJuz = 1;
+
+            for (let day = 1; day <= totalDays; day++) {
+                let hifz = '';
+                let near = '';
+                let far = '';
+                let prep = '';
+                let isExamDay = (day === totalDays);
+                let isExamDay1 = (cycleLength === 14 && day === 7) || (cycleLength === 21 && day === 7);
+                let isExamDay2 = (cycleLength === 21 && day === 14);
+
+                if (isExamDay || isExamDay1 || isExamDay2) {
+                    let examStart, examEnd;
+                    
+                    if (cycleLength === 14) {
+                        if (isExamDay1) {
+                            const halfPoint = farReviewStart + Math.floor(totalKnownPages / 2);
+                            examStart = farReviewStart;
+                            examEnd = halfPoint;
+                        } else {
+                            examStart = farReviewStart + Math.floor(totalKnownPages / 2) + 1;
+                            examEnd = cycleEnd;
+                        }
+                    } else if (cycleLength === 21) {
+                        if (isExamDay1) {
+                            examStart = farReviewStart;
+                            examEnd = farReviewStart + Math.floor(totalKnownPages / 3);
+                        } else if (isExamDay2) {
+                            examStart = farReviewStart + Math.floor(totalKnownPages / 3) + 1;
+                            examEnd = farReviewStart + Math.floor(totalKnownPages * 2 / 3);
+                        } else {
+                            examStart = farReviewStart + Math.floor(totalKnownPages * 2 / 3) + 1;
+                            examEnd = cycleEnd;
+                        }
+                    } else {
+                        examStart = farReviewStart;
+                        examEnd = cycleEnd;
+                    }
+
+                    const times15 = useArabicNumerals ? '×١٥' : '×15';
+                    const examPrep = isExamDay 
+                        ? (dailyAmount === 0.5
+                            ? `${pageAbbr} ${fn(cycleEnd + 1)} ↑ ${times15}`
+                            : `${pageAbbr} ${fn(cycleEnd + 1)} ${times15}`)
+                        : '—';
+
+                    rows += `
+                        <tr class="exam-row">
+                            <td class="day-num">${fn(day)}</td>
+                            <td colspan="3" class="exam-cell">${isExamDay ? t.exam : t.examPart} ${pageAbbr} ${fn(examStart)}–${fn(examEnd)} ${t.byHeart}</td>
+                            <td>${examPrep}</td>
+                            <td><div class="checkbox-box"></div></td>
+                        </tr>
+                    `;
+                    continue;
+                }
+
+                if (dailyAmount === 0.5) {
+                    const isUpper = (day % 2 === 1);
+                    const pageNum = Math.ceil(currentPage);
+
+                    hifz = isUpper 
+                        ? `${pageAbbr} ${fn(pageNum)} ↑`
+                        : `${pageAbbr} ${fn(Math.floor(currentPage))} ↓`;
+                    
+                    currentPage += 0.5;
+
+                    if (day === 1) {
+                        near = '—';
+                    } else {
+                        const learnedHalves = day - 1;
+                        const fullPages = Math.floor(learnedHalves / 2);
+                        if (fullPages > 0) {
+                            near = `${pageAbbr} ${fn(cycleStart)}–${fn(cycleStart + fullPages - 1)}`;
+                            if (learnedHalves % 2 === 1) {
+                                near += ` + ${fn(cycleStart + fullPages)}↑`;
+                            }
+                        } else {
+                            near = `${pageAbbr} ${fn(cycleStart)} ↑`;
+                        }
+                    }
+
+                    const times15 = useArabicNumerals ? '×١٥' : '×15';
+                    if (day < studyDays) {
+                        const nextIsUpper = (day % 2 === 0);
+                        const nextPage = Math.ceil(currentPage);
+                        prep = nextIsUpper 
+                            ? `${pageAbbr} ${fn(nextPage)} ↑ ${times15}` 
+                            : `${pageAbbr} ${fn(Math.floor(currentPage))} ↓ ${times15}`;
+                    } else {
+                        prep = '—';
+                    }
+                } else {
+                    hifz = `${pageAbbr} ${fn(currentPage)}`;
+                    
+                    near = day === 1 
+                        ? '—' 
+                        : `${pageAbbr} ${fn(cycleStart)}–${fn(currentPage - 1)}`;
+
+                    const times15 = useArabicNumerals ? '×١٥' : '×15';
+                    prep = day < studyDays 
+                        ? `${pageAbbr} ${fn(currentPage + 1)} ${times15}`
+                        : '—';
+                    
+                    currentPage++;
+                }
+
+                if (reviewSystem === 'juz') {
+                    const juzStartPage = farReviewStart + (currentJuz - 1) * 20;
+                    const juzEndPage = Math.min(juzStartPage + 19, knownTo);
+                    far = `${juzAbbr} ${fn(currentJuz)} (${pageAbbr} ${fn(juzStartPage)}–${fn(juzEndPage)})`;
+                    currentJuz++;
+                    if (currentJuz > juzCount) currentJuz = 1;
+                } else {
+                    const farEnd = Math.min(farReviewCurrent + reviewPerDay - 1, knownTo);
+                    far = `${pageAbbr} ${fn(farReviewCurrent)}–${fn(farEnd)}`;
+                    farReviewCurrent = farEnd + 1;
+                    if (farReviewCurrent > knownTo) {
+                        farReviewCurrent = farReviewStart;
+                    }
+                }
+
+                rows += `
+                    <tr>
+                        <td class="day-num">${fn(day)}</td>
+                        <td>${hifz}</td>
+                        <td>${near}</td>
+                        <td>${far}</td>
+                        <td>${prep}</td>
+                        <td><div class="checkbox-box"></div></td>
+                    </tr>
+                `;
+            }
+
+            const times15Legend = useArabicNumerals ? '×١٥' : '×15';
+            
+            let cycleName;
+            if (language === 'ar') {
+                cycleName = `${t.week} ${arabicWeekNames[cycleNum] || fn(cycleNum)}`;
+            } else {
+                if (cycleLength === 7) {
+                    cycleName = `${t.week} ${fn(cycleNum)}`;
+                } else if (cycleLength === 14) {
+                    cycleName = `ЦИКЛ ${fn(cycleNum)} (2 недели)`;
+                } else {
+                    cycleName = `ЦИКЛ ${fn(cycleNum)} (3 недели)`;
+                }
+            }
+
+            const systemBadge = reviewSystem === 'juz' 
+                ? (language === 'ar' ? 'نظام الجزء' : 'Джуз/день')
+                : (language === 'ar' ? 'نظام الصفحات' : 'Страницы');
+
+            let noteText = t.bigVolumeNote;
+            if (reviewSystem === 'juz') {
+                noteText = t.juzSystemNote;
+            }
+            if (cycleLength === 14) {
+                noteText += ' ' + t.twoWeekNote;
+            }
+            if (cycleLength === 21) {
+                noteText += ' ' + t.threeWeekNote;
+            }
+
+            const farReviewLabel = reviewSystem === 'juz' ? t.juzReview : t.farReview;
+
+            return `
+                <div class="page ${isRTL ? 'rtl' : ''}">
+                    <h1 class="page-title">${t.title} <span class="system-badge">${systemBadge}</span></h1>
+
+                    <div class="header-info">
+                        <div class="header-field">
+                            <span>${t.learned}</span>
+                            <span class="header-value">${pageAbbr} ${fn(farReviewStart)}–${fn(knownTo)}</span>
+                        </div>
+                        <div class="header-field">
+                            <span>${t.goal}</span>
+                            <span class="header-value">${pageAbbr} ${fn(goalPage)}</span>
+                        </div>
+                        <div class="header-field">
+                            <span>${t.pace}</span>
+                            <span class="header-value">${dailyText}</span>
+                            <span>${t.pagePerDay}</span>
+                        </div>
+                        <div class="header-field">
+                            <span>${t.cycle}</span>
+                            <span class="header-value">${fn(cycleLength)}</span>
+                            <span>${t.days}</span>
+                        </div>
+                    </div>
+
+                    <div class="week-title">${cycleName} — ${pageAbbr} ${fn(cycleStart)}–${fn(cycleEnd)} | ${t.total} ${pageAbbr} ${fn(farReviewStart)}–${fn(cycleEnd)}</div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>${t.day}</th>
+                                <th>${t.hifz}</th>
+                                <th>${t.nearReview}</th>
+                                <th>${farReviewLabel}</th>
+                                <th>${t.prep}</th>
+                                <th class="checkbox-col">✓</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${rows}
+                        </tbody>
+                    </table>
+
+                    <div class="legend">
+                        <span><b>↑</b> = ${t.upper}</span>
+                        <span><b>↓</b> = ${t.lower}</span>
+                        <span><b>${times15Legend}</b> = ${t.times15}</span>
+                        <span><b>${pageAbbr}</b> = ${t.page}</span>
+                        ${reviewSystem === 'juz' ? `<span><b>${juzAbbr}</b> = ${t.juz}</span>` : ''}
+                    </div>
+
+                    <div class="info-section">
+                        <h3>${t.dailySchedule}</h3>
+                        <ul>
+                            <li><b>${t.afterFajr}</b> ${t.hifzNew}</li>
+                            <li><b>${t.afterDhuhr}</b> ${t.nearReviewDesc}</li>
+                            ${reviewSystem === 'juz' ? `<li><b>${t.afterAsr}</b> ${t.juzReviewDesc}</li>` : ''}
+                            <li><b>${t.afterMaghrib}</b> ${t.farReviewDesc}</li>
+                            <li><b>${t.beforeSleep}</b> ${t.prepDesc}</li>
+                            <li><b>${t.examDay}</b> ${t.examDayDesc}</li>
+                        </ul>
+                        <div class="note">${noteText}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function goBack() {
+            document.getElementById('setupForm').style.display = 'block';
+            document.getElementById('tablesContainer').style.display = 'none';
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            loadSettings();
+            updateRecommendation();
+        });
+    </script>
+
+</body>
+</html>
