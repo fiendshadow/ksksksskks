@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>أحاديث الآداب والأخلاق - للطباعة</title>
+    <style>
+        /* بسيط للطباعة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Traditional Arabic', 'Amiri', 'Scheherazade', 'Times New Roman', serif;
+            background: white;
+            padding: 8px;
+            margin: 0;
+            font-size: 12pt;
+            line-height: 1.3;
+        }
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            font-size: 20pt;
+            margin: 0.2cm 0;
+            color: #1e3a2f;
+        }
+        .sub {
+            text-align: center;
+            font-size: 10pt;
+            margin-bottom: 0.5cm;
+            color: #2c5e3f;
+        }
+        h2 {
+            background: #e0e7e0;
+            padding: 4px 8px;
+            margin: 0.6cm 0 0.2cm 0;
+            font-size: 16pt;
+            border-right: 4px solid #2c6e3f;
+            font-weight: bold;
+        }
+        .table-wrapper {
+            margin-bottom: 0.8cm;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10pt;
+            background: white;
+            border: 1px solid #aaa;
+        }
+        th {
+            background: #cbdcc5;
+            border: 1px solid #8a9e82;
+            padding: 5px 4px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 10pt;
+        }
+        td {
+            border: 1px solid #bcceb4;
+            padding: 5px 4px;
+            vertical-align: top;
+        }
+        .col-num {
+            width: 48px;
+            text-align: center;
+            background: #f9f9e8;
+            font-weight: bold;
+        }
+        .col-source {
+            width: 80px;
+            text-align: center;
+            background: #fefef0;
+        }
+        .col-sigga {
+            width: 110px;
+        }
+        .col-sahaba {
+            width: 100px;
+            font-weight: bold;
+            background: #fef2df;
+        }
+        .matn-text {
+            line-height: 1.4;
+        }
+        
+        /* ألوان صيغ الأداء (بسيطة لكن واضحة) */
+        .sigga-green { background-color: #e0f5e0; }      /* قال رسول الله ﷺ */
+        .sigga-blue { background-color: #d9edff; }       /* قال النبي ﷺ */
+        .sigga-yellow { background-color: #fff2cc; }     /* أن رسول الله ﷺ قال */
+        .sigga-orange { background-color: #ffe6cc; }     /* قال (مفردة) */
+        .sigga-red { background-color: #ffe0e0; }        /* نهى */
+        .sigga-purple { background-color: #f0e5ff; }     /* لعن */
+        .sigga-teal { background-color: #d9f0f2; }       /* سمعت رسول الله ﷺ يقول */
+        .sigga-brown { background-color: #f2e4da; }      /* قال لي رسول الله ﷺ */
+        .sigga-grayblue { background-color: #e6ecf5; }   /* كان النبي ﷺ إذا ... قال */
+        .sigga-mint { background-color: #dff0e6; }       /* أن النبي ﷺ رأى ... فنهاهم وقال */
+        .sigga-lightgray { background-color: #f0f0f0; }  /* صيغ أخرى */
+        
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+                font-size: 9.5pt;
+            }
+            .container {
+                margin: 0;
+                padding: 0;
+            }
+            .table-wrapper {
+                overflow: visible;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            table {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                font-size: 8.5pt;
+            }
+            th, td {
+                padding: 3px 2px;
+            }
+            .col-num { width: 40px; }
+            .col-source { width: 65px; }
+            .col-sigga { width: 95px; }
+            .col-sahaba { width: 85px; }
+            h2 {
+                margin: 0.4cm 0 0.1cm 0;
+                font-size: 14pt;
+            }
+            @page {
+                size: A4 landscape;
+                margin: 0.6cm;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>أحاديث الآداب والأخلاق</h1>
+    <div class="sub">للحفظ والإتقان • مرتبة حسب الصحابي • ملونة حسب صيغة الأداء</div>
+
+    <!-- أبو هريرة -->
+    <h2>أبو هريرة رضي الله عنه</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr><th class="col-num">الرقم</th><th class="col-source">المصدر</th><th class="col-sigga">صيغة الأداء</th><th class="col-sahaba">الصحابي</th><th class="matn-text">المتن</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="col-num">149</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-green">قال رسول الله ﷺ</td><td class="col-sahaba">أبو هريرة</td><td class="matn-text">ما عاب النبي صلى الله عليه وسلم طعاما قط، إن اشتهاه أكله، وإن كرهه تركه</td></tr>
+                <tr><td class="col-num">156</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-green">قال رسول الله ﷺ</td><td class="col-sahaba">أبو هريرة</td><td class="matn-text">إذا دعي أحدكم فليجب، فإن كان صائما فليصل، وإن كان مفطرا فليطعم</td></tr>
+                <tr><td class="col-num">173</td><td class="col-source">البخاري</td><td class="col-sigga sigga-blue">عن النبي ﷺ قال</td><td class="col-sahaba">أبو هريرة</td><td class="matn-text">لا ينظر الله يوم القيامة إلى من جر إزاره بطرا</td></tr>
+                <tr><td class="col-num">187</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-yellow">أن رسول الله ﷺ قال</td><td class="col-sahaba">أبو هريرة</td><td class="matn-text">إذا انتعل أحدكم فليبدأ باليمين، وإذا خلع فليبدأ بالشمال، وليخلعهما جميعا</td></tr>
+                <tr><td class="col-num">193</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-green">قال رسول الله ﷺ</td><td class="col-sahaba">أبو هريرة</td><td class="matn-text">لا يقم الرجل من مجلسه ثم يجلس فيه آخر، ولكن تفسحوا وتوسعوا</td></tr>
+                <tr><td class="col-num">196</td><td class="col-source">مسلم</td><td class="col-sigga sigga-red">نهى</td><td class="col-sahaba">أبو هريرة</td><td class="matn-text">نهى أن يجلس الرجل بين الرجلين بغير إذنهما</td></tr>
+                <tr><td class="col-num">205</td><td class="col-source">مسلم</td><td class="col-sigga sigga-green">قال رسول الله ﷺ</td><td class="col-sahaba">أبو هريرة</td><td class="matn-text">ثلاث دعوات مستجابات لا شك فيهن: دعوة المظلوم، ودعوة المسافر، ودعوة الوالد على ولده</td></tr>
+                <tr><td class="col-num">227</td><td class="col-source">البخاري</td><td class="col-sigga sigga-blue">عن النبي ﷺ قال</td><td class="col-sahaba">أبو هريرة</td><td class="matn-text">إذا اشتد الحر فأبردوا بالصلاة، فإن شدة الحر من فيح جهنم</td></tr>
+                <tr><td class="col-num">228</td><td class="col-source">مسلم</td><td class="col-sigga sigga-green">قال رسول الله ﷺ</td><td class="col-sahaba">أبو هريرة</td><td class="matn-text">من نوقش الحساب عذب</td></tr>
+                <tr><td class="col-num">231</td><td class="col-source">مسلم</td><td class="col-sigga sigga-green">قال رسول الله ﷺ</td><td class="col-sahaba">أبو هريرة</td><td class="matn-text">قال الله تعالى: أنا عند ظن عبدي بي، وأنا معه إذا ذكرني</td></tr>
+                <tr><td class="col-num">235</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-green">قال رسول الله ﷺ</td><td class="col-sahaba">أبو هريرة</td><td class="matn-text">اتقوا الظلم فإن الظلم ظلمات يوم القيامة</td></tr>
+                <tr><td class="col-num">250</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-green">قال رسول الله ﷺ</td><td class="col-sahaba">أبو هريرة</td><td class="matn-text">لا يشكر الله من لا يشكر الناس</td></tr>
+                <tr><td class="col-num">-</td><td class="col-source">مسلم</td><td class="col-sigga sigga-yellow">أن رسول الله ﷺ قال</td><td class="col-sahaba">أبو هريرة</td><td class="matn-text">إن الله لا ينظر إلى أجسامكم ولا إلى صوركم ولكن ينظر إلى قلوبكم وأعمالكم</td></tr>
+                <tr><td class="col-num">-</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-green">قال رسول الله ﷺ</td><td class="col-sahaba">أبو هريرة</td><td class="matn-text">من كانت له أرض فليزرعها أو ليمنحها أخاه</td></tr>
+                <tr><td class="col-num">-</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-green">قال رسول الله ﷺ</td><td class="col-sahaba">أبو هريرة</td><td class="matn-text">لعن رسول الله صلى الله عليه وسلم آكل الربا وموكله وشاهديه وكاتبه</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ابن عباس -->
+    <h2>ابن عباس رضي الله عنهما</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th class="col-num">الرقم</th><th class="col-source">المصدر</th><th class="col-sigga">صيغة الأداء</th><th class="col-sahaba">الصحابي</th><th class="matn-text">المتن</th></tr></thead>
+            <tbody>
+                <tr><td class="col-num">151</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-blue">أن النبي ﷺ قال</td><td class="col-sahaba">ابن عباس</td><td class="matn-text">البركة تنزل وسط الطعام، فكلوا من حافتيه، ولا تأكلوا من وسطه</td></tr>
+                <tr><td class="col-num">154</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-orange">قال</td><td class="col-sahaba">ابن عباس</td><td class="matn-text">إذا أكل أحدكم طعاما فلا يمسح يده حتى يلعقها أو يلعقها</td></tr>
+                <tr><td class="col-num">160</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-red">نهى</td><td class="col-sahaba">ابن عباس</td><td class="matn-text">نهى رسول الله صلى الله عليه وسلم أن يتنفس في الإناء أو ينفخ فيه</td></tr>
+                <tr><td class="col-num">169</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-yellow">أن رسول الله ﷺ قال</td><td class="col-sahaba">ابن عباس</td><td class="matn-text">البسوا من ثيابكم البياض فإنها من خير ثيابكم، وكفنوا فيها موتاكم</td></tr>
+                <tr><td class="col-num">179</td><td class="col-source">البخاري</td><td class="col-sigga sigga-purple">لعن</td><td class="col-sahaba">ابن عباس</td><td class="matn-text">لعن رسول الله صلى الله عليه وسلم المتشبهين من الرجال بالنساء، والمتشبهات من النساء بالرجال</td></tr>
+                <tr><td class="col-num">248</td><td class="col-source">مسلم</td><td class="col-sigga sigga-blue">أن النبي ﷺ قال</td><td class="col-sahaba">ابن عباس</td><td class="matn-text">لا ضرر ولا ضرار</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- جابر -->
+    <h2>جابر بن عبد الله رضي الله عنهما</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th class="col-num">الرقم</th><th class="col-source">المصدر</th><th class="col-sigga">صيغة الأداء</th><th class="col-sahaba">الصحابي</th><th class="matn-text">المتن</th></tr></thead>
+            <tbody>
+                <tr><td class="col-num">166</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-yellow">أن رسول الله ﷺ قال</td><td class="col-sahaba">جابر بن عبد الله</td><td class="matn-text">غطوا الإناء وأوكوا السقاء وأغلقوا الباب وأطفئوا السراج، فإن الشيطان لا يفتح غلقا ولا يكشف إناء، فإن لم يجد أحدكم إلا أن يعرض على إنائه عودا ويذكر اسم الله فليفعل</td></tr>
+                <tr><td class="col-num">188</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-yellow">أن رسول الله ﷺ قال</td><td class="col-sahaba">جابر بن عبد الله</td><td class="matn-text">إذا أطال أحدكم الغيبة فلا يطرق أهله ليلا</td></tr>
+                <tr><td class="col-num">245</td><td class="col-source">أبو داود</td><td class="col-sigga sigga-blue">عن النبي ﷺ قال</td><td class="col-sahaba">جابر بن عبد الله</td><td class="matn-text">من ستر مسلما ستره الله في الدنيا والآخرة</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ابن عمر -->
+    <h2>ابن عمر رضي الله عنهما</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th class="col-num">الرقم</th><th class="col-source">المصدر</th><th class="col-sigga">صيغة الأداء</th><th class="col-sahaba">الصحابي</th><th class="matn-text">المتن</th></tr></thead>
+            <tbody>
+                <tr><td class="col-num">183</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-mint">أن النبي ﷺ رأى صبيا قد حلق بعض شعره وترك بعضه، فنهاهم عن ذلك وقال</td><td class="col-sahaba">ابن عمر</td><td class="matn-text">احلقوه كله أو اتركوه كله</td></tr>
+                <tr><td class="col-num">192</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-grayblue">كان النبي ﷺ إذا أراد أن ينام قال، وإذا استيقظ قال</td><td class="col-sahaba">ابن عمر</td><td class="matn-text">(للنوم) باسمك اللهم أموت وأحيا، (للاستيقاظ) الحمد لله الذي أحيانا بعد ما أماتنا وإليه النشور</td></tr>
+                <tr><td class="col-num">237</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-green">قال رسول الله ﷺ</td><td class="col-sahaba">ابن عمر</td><td class="matn-text">إن من أجرأ الناس على الله من قتل نبيا أو أمر بقتل</td></tr>
+                <tr><td class="col-num">-</td><td class="col-source">أبو داود، الترمذي</td><td class="col-sigga sigga-teal">سمع رسول الله ﷺ يقول</td><td class="col-sahaba">ابن عمر</td><td class="matn-text">من حلف بغير الله فقد أشرك</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- حذيفة -->
+    <h2>حذيفة بن اليمان رضي الله عنه</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th class="col-num">الرقم</th><th class="col-source">المصدر</th><th class="col-sigga">صيغة الأداء</th><th class="col-sahaba">الصحابي</th><th class="matn-text">المتن</th></tr></thead>
+            <tbody>
+                <tr><td class="col-num">168</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-yellow">أن رسول الله ﷺ قال</td><td class="col-sahaba">حذيفة</td><td class="matn-text">لا تشربوا في آنية الذهب والفضة، ولا تلبسوا الديباج والحرير، فإنه لهم في الدنيا وهو لكم في الآخرة يوم القيامة</td></tr>
+                <tr><td class="col-num">189</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-orange">قال</td><td class="col-sahaba">حذيفة</td><td class="matn-text">إذا أتيت مضجعك فتوضأ وضوءك للصلاة، ثم اضطجع على شقك الأيمن، وقل: اللهم أسلمت وجهي إليك، وفوضت أمري إليك، وألجأت ظهري إليك، رغبة ورهبة إليك، لا ملجأ ولا منجا منك إلا إليك، آمنت بكتابك الذي أنزلت، ونبيك الذي أرسلت</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- بقية الصحابة -->
+    <h2>بقية الصحابة رضي الله عنهم</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th class="col-num">الرقم</th><th class="col-source">المصدر</th><th class="col-sigga">صيغة الأداء</th><th class="col-sahaba">الصحابي</th><th class="matn-text">المتن</th></tr></thead>
+            <tbody>
+                <tr><td class="col-num">146</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-brown">قال لي رسول الله ﷺ</td><td class="col-sahaba">عمر بن أبي سلمة</td><td class="matn-text">يا غلام، سم الله، وكل بيمينك، وكل مما يليك</td></tr>
+                <tr><td class="col-num">155</td><td class="col-source">مسلم</td><td class="col-sigga sigga-lightgray">قال وكل طعاما</td><td class="col-sahaba">(بدون صحابي)</td><td class="matn-text">إذا سقطت لقمة أحدكم فليمسح عنها الأذى وليأكلها، ولا يدعها للشيطان</td></tr>
+                <tr><td class="col-num">176</td><td class="col-source">البخاري</td><td class="col-sigga sigga-yellow">أن رسول الله ﷺ قال</td><td class="col-sahaba">أبو موسى الأشعري</td><td class="matn-text">حرم لباس الحرير والذهب على ذكور أمتي، وأحل لإناثهم</td></tr>
+                <tr><td class="col-num">195</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-yellow">أن رسول الله ﷺ قال</td><td class="col-sahaba">عبد الله بن عمرو</td><td class="matn-text">إذا قام أحدكم من مجلسه ثم رجع إليه فهو أحق به</td></tr>
+                <tr><td class="col-num">202</td><td class="col-source">أبو داود، الترمذي</td><td class="col-sigga sigga-orange">قال</td><td class="col-sahaba">كعب بن مالك</td><td class="matn-text">قلما كان رسول الله صلى الله عليه وسلم يخرج في سفر إلا يوم الخميس</td></tr>
+                <tr><td class="col-num">204</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-teal">سمعت رسول الله ﷺ يقول</td><td class="col-sahaba">خولة بنت حكيم</td><td class="matn-text">من نزل منزلا ثم قال: أعوذ بكلمات الله التامات من شر ما خلق، لم يضره شيء حتى يرتحل من منزله ذلك</td></tr>
+                <tr><td class="col-num">239</td><td class="col-source">أحمد</td><td class="col-sigga sigga-lightgray">قال رجل: يا رسول الله أوصني. قال: لا تغضب</td><td class="col-sahaba">رجل من أصحاب النبي</td><td class="matn-text">لا تغضب. فردد مرارا قال: لا تغضب</td></tr>
+                <tr><td class="col-num">241</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-yellow">أن رسول الله ﷺ قال</td><td class="col-sahaba">أبو أيوب الأنصاري</td><td class="matn-text">لا يحل لمسلم أن يهجر أخاه فوق ثلاث ليال، يلتقيان فيعرض هذا ويعرض هذا، وخيرهما الذي يبدأ بالسلام</td></tr>
+                <tr><td class="col-num">243</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-green">قال رسول الله ﷺ</td><td class="col-sahaba">أبو بكر الصديق</td><td class="matn-text">ألا أنبئكم بأكبر الكبائر؟ الإشراك بالله، وعقوق الوالدين</td></tr>
+                <tr><td class="col-num">-</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-blue">قال النبي ﷺ</td><td class="col-sahaba">عبد الله بن مسعود</td><td class="matn-text">سباب المسلم فسوق وقتاله كفر</td></tr>
+                <tr><td class="col-num">-</td><td class="col-source">البخاري، مسلم</td><td class="col-sigga sigga-yellow">أن رسول الله ﷺ قال</td><td class="col-sahaba">عبد الله بن عمرو</td><td class="matn-text">الراحمون يرحمهم الرحمن، ارحموا من في الأرض يرحمكم من في السماء</td></tr>
+                <tr><td class="col-num">-</td><td class="col-source">مسلم</td><td class="col-sigga sigga-teal">سمع رسول الله ﷺ يقول</td><td class="col-sahaba">أبو قتادة الأنصاري</td><td class="matn-text">إياكم وكثرة الحلف في البيع، فإنه ينفق ثم يمحق</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>
